@@ -1,0 +1,12 @@
+h1 {
+    text-align: center;
+};
+.row .card .button-search{
+    margin-top: 10px
+   
+};
+
+.daily-weather{
+    margin: auto;
+    background-color: cadetblue;
+}

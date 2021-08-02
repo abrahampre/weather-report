@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" href="./assets/style/style.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   
+    <title>Weather Forecast</title>
+</head>
+<body class="flex-column min-100-vh">
+    <header>
+        <h1 class="p-3 mb-2 bg-primary text-white">Weather Dashboard</h1>
+    </header>
+    <main class="flex-row justify-space-between">
+    <div class="row">  
+        <div class ="col-md-4">
+            <div class="card">
+                <h3 class= "card-header text-uppercase">Search for City</h3>
+                <form id="city-form" class="card-body" >
+                    <label class="form-label" for="City"></label>
+                    <input class="city" id="city-name" type="text" autofocus="true" class="form-input">
+                    <button type="submit" class="button">Search</button>
+                </form>
+
+            </div>
+            <div class="citites-saved">
+
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <div class="daily-weather">
+                <h2>City:<span class="daily-city">Daily City here</span></h2>
+                <h4>Temperature:<span class="daily-temp"></span></h4>
+                <h4>Wind:<span class="daily-wind"></span></h4>
+                <h4>Uv Index:<span class="daily-uv"></span></h4>
+            </div>
+            <div class="five-day-forecast">
+                <h2>5-Day Forecast:</h2>
+
+            </div>
+
+        </div>
+    </div>
+    </main>  
+    <script src="./assets/js/java.js"></script>
+</body>
+</html>
