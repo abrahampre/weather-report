@@ -25,26 +25,28 @@
                 </form>
 
             </div>
-            <div class="citites-saved">
+            <div class="city-saved">
 
             </div>
-
         </div>
         <div class="col-md-8">
             <div class="daily-weather card">
-                <h2>City:<span id="daily-city"> Daily City here</span></h2>
+                <h2>City:<span id="daily-city"> </span></h2><img class=dailyimg/>  
                 <h4>Temperature:<span id="daily-temp"> </span> °F </h4>
+                <h4>Humidity:<span id="daily-humidity"> </span> % </h4>
                 <h4>Wind:<span id="daily-wind"></span> mph</h4>
                 <h4>Uv Index:<span id="daily-uv"></span></h4>
             </div>
-            <div class="five-day-forecast">
+            <div id="five-day-forecast" class="row d-flex justify-content-around">
                 <h2>5-Day Forecast:</h2>
+               
 
             </div>
 
         </div>
     </div>
     </main>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/java.js"></script>
 </body>
 </html>
