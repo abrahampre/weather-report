@@ -10,3 +10,6 @@ h1 {
     margin: auto;
     background-color: cadetblue;
 }
+.li{
+    list-style-type:none;
+}
