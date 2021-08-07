@@ -1,8 +1,8 @@
 var cityInputEl = document.querySelector("#city-name");
 var cityFormEl = document.querySelector("#city-form");
 var fiveDayArea = document.querySelector("#five-day-forecast");
-var cityListArea = document.querySelector("#city-list");
-var selectingCityOnListEl= document.querySelector("#city-list");
+var cityListArea = document.querySelector("#city-list");//para agregar la lista
+var selectingCityOnListEl= document.querySelector("#city-list"); /////para selectionar la lista 
 var clickingCity= document.querySelector("#single-city")
 //daily Displays
 var cityDailyDisplay = document.querySelector("#daily-city");
@@ -42,11 +42,12 @@ var getCityData = function(city) {
             console.log(long);
             
            
-
+            savingCityList(city);
             createFiveDays(lat, long)
         });
         }else{
             alert("Error, City not found!");
+            return;
         };    
     })
 
@@ -117,6 +118,15 @@ var createFiveDays = function(lat, long){
 };
 
 
+var selectedFromList= function(city){
+    console.log("selected rom list in action");
+    console.log(city);
+    getCityData(city);
+}
+
+
+
+
 
 
 
@@ -131,7 +141,7 @@ var cityNameHandler =function(event){
     if(cityName){
         getCityData(cityName);
         cityInputEl.value=" ";
-        savingCityList(cityName);
+       // savingCityList(cityName);
        
     }else{
         alert("Please type a City")
@@ -148,24 +158,29 @@ var savingCityList= function(city){
     citySaved.classList ="text-uppercase btn btn-primary btn-lg";
     citySaved.setAttribute("id","single-city");
     citySaved.setAttribute("type","button");
+    console.log(city);
     citySaved.textContent = city;
-    //citySaved.addEventListener("onclick", alert("buttonclicked"));
+    
+    citySaved.addEventListener("click", function(){
+        alert("city selected! "+city);
+        console.log(city);
+        selectedFromList(city);
 
-
+    })
     citySavedLi.appendChild(citySaved);
     cityListArea.appendChild(citySavedLi);  
 }
     
 
-var runCityOnList=function(){
-    alert("button clicked");
-    console.log(selectingCityOnListEl.textContent);
-   // clickingCity.addEventListener("click",alert("clicked!!!!!!!!!!!"));
+// var runCityOnList=function(){
+//     alert("button clicked");
+//     console.log(selectingCityOnListEl.textContent);
+//    // clickingCity.addEventListener("click",alert("clicked!!!!!!!!!!!"));
 
-}
+// }
 
 
 console.log("outside");
 
 cityFormEl.addEventListener('submit',cityNameHandler);
-selectingCityOnListEl.addEventListener("click", runCityOnList );
+//selectingCityOnListEl.addEventListener("click", runCityOnList );
