@@ -28,7 +28,8 @@ var getCityData = function(city) {
             response.json().then(function(data){
                 console.log(data);
                 cityDailyDisplay.textContent=" "+data.name + " " + "("+ currentDate+") ";
-                city = data.name
+                city = data.name;
+                localStorage.setItem("City", city);
             // inserting image 
             
             imageDailyDisplay.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon  +"@2x.png" );
@@ -75,13 +76,13 @@ var createFiveDays = function(lat, long){
             var uvi = data.current.uvi
             uvDailyDisplay.textContent = " "+uvi;
                 if (uvi>8){
-                    uvDailyDisplay.className="bg-danger";
+                    uvDailyDisplay.className="bg-danger rounded";
                 }else if(uvi<8 && uvi>6){
-                    uvDailyDisplay.className="bg-warning";
+                    uvDailyDisplay.className="bg-warning rounded";
                 }else if(uvi<6 && uvi>3){
-                    uvDailyDisplay.className="bg-info";
+                    uvDailyDisplay.className="bg-info rounded";
                 }else if(uvi<3){
-                    uvDailyDisplay.className="bg-success";
+                    uvDailyDisplay.className="bg-success rounded";
                 }
             fiveDayArea.textContent="";
             
@@ -131,15 +132,10 @@ var createFiveDays = function(lat, long){
     })
 };
 
-
-var selectedFromList= function(city){
-    console.log("selected from list in action");
-    console.log(city);
-    getCityData(city);
-}
+///Takes the name and trims, verification of input.
 
 var cityNameHandler =function(event){
-    console.log("cityNamehandler on action ")
+   
     event.preventDefault();
  
     var cityName= cityInputEl.value.trim();
@@ -170,13 +166,50 @@ var savingCityList= function(city){
     citySaved.addEventListener("click", function(){
         alert("city selected! "+city);
         console.log(city);
-        selectedFromList(city);
-
+        secondGetCityData(city);
     })
     citySavedLi.appendChild(citySaved);
     cityListArea.appendChild(citySavedLi);  
 }
     
-console.log("outside");
+var secondGetCityData = function(city) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&appid=e883e4d86e346084de47b4212521fedc";
+    
+    //make request for api url
+
+    fetch(apiUrl).then(function(response){
+
+        if (response.ok){
+            response.json().then(function(data){
+                console.log(data);
+                cityDailyDisplay.textContent=" "+data.name + " " + "("+ currentDate+") ";
+                city = data.name
+            // inserting image 
+            
+            imageDailyDisplay.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon  +"@2x.png" );
+            imageDailyDisplay.height="50";
+            imageDailyDisplay.width="50";
+
+            temperatureDailyDisplay.textContent=" "+data.main.temp;
+            windDailyDisplay.textContent=" "+data.wind.speed;
+            humidityDailyDisplay.textContent= " "+data.main.humidity;
+            
+            lat = data.coord.lat;
+            console.log(lat);
+            long = data.coord.lon;
+            console.log(long);
+            
+            createFiveDays(lat, long)
+        });
+        }else{
+            alert("Error, City not found!");
+            return;
+        };    
+    })
+
+    .catch(function(error){
+        alert("Unable to connect to the system!")
+    })
+};
 
 cityFormEl.addEventListener('submit',cityNameHandler);
