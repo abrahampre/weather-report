@@ -1,6 +1,7 @@
 var cityInputEl = document.querySelector("#city-name");
 var cityFormEl = document.querySelector("#city-form");
 var fiveDayArea = document.querySelector("#five-day-forecast");
+
 var cityListArea = document.querySelector("#city-list");//para agregar la lista
 var selectingCityOnListEl= document.querySelector("#city-list"); /////para selectionar la lista 
 var clickingCity= document.querySelector("#single-city")
@@ -30,7 +31,9 @@ var getCityData = function(city) {
                 city = data.name
             // inserting image 
             
-            // imageDailyDisplay.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon  +"@2x.png" );
+            imageDailyDisplay.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon  +"@2x.png" );
+            imageDailyDisplay.height="50";
+            imageDailyDisplay.width="50";
 
             temperatureDailyDisplay.textContent=" "+data.main.temp;
             windDailyDisplay.textContent=" "+data.wind.speed;
@@ -41,7 +44,7 @@ var getCityData = function(city) {
             long = data.coord.lon;
             console.log(long);
             
-           
+            
             savingCityList(city);
             createFiveDays(lat, long)
         });
@@ -69,8 +72,17 @@ var createFiveDays = function(lat, long){
 
             response.json().then(function(data){
                 console.log(data);
-            uvDailyDisplay.textContent = " "+data.current.uvi;
-           
+            var uvi = data.current.uvi
+            uvDailyDisplay.textContent = " "+uvi;
+                if (uvi>8){
+                    uvDailyDisplay.className="bg-danger";
+                }else if(uvi<8 && uvi>6){
+                    uvDailyDisplay.className="bg-warning";
+                }else if(uvi<6 && uvi>3){
+                    uvDailyDisplay.className="bg-info";
+                }else if(uvi<3){
+                    uvDailyDisplay.className="bg-success";
+                }
             fiveDayArea.textContent="";
             
             for(var i=0; i<5; i++){
@@ -78,7 +90,7 @@ var createFiveDays = function(lat, long){
                 
                
                 var futureForecastArea = document.createElement("div");
-                futureForecastArea.classList="list-item card col-md-2 d-flex justify-content-around";
+                futureForecastArea.classList="list-item card col-md-2 d-flex justify-content-around bg-secondary text-white";
 
 
                 //adding date//
@@ -90,6 +102,8 @@ var createFiveDays = function(lat, long){
 
                 var icon= document.createElement("img")
                 icon.setAttribute("src","http://openweathermap.org/img/wn/"+data.daily[i].weather[0].icon  +"@2x.png" )
+                icon.height ="50";
+                icon.width="50";
                 futureForecastArea.appendChild(icon);
 
                 
@@ -119,29 +133,21 @@ var createFiveDays = function(lat, long){
 
 
 var selectedFromList= function(city){
-    console.log("selected rom list in action");
+    console.log("selected from list in action");
     console.log(city);
     getCityData(city);
 }
 
-
-
-
-
-
-
 var cityNameHandler =function(event){
     console.log("cityNamehandler on action ")
     event.preventDefault();
-    console.log(event);
-
+ 
     var cityName= cityInputEl.value.trim();
 
     console.log (cityName);
     if(cityName){
         getCityData(cityName);
         cityInputEl.value=" ";
-       // savingCityList(cityName);
        
     }else{
         alert("Please type a City")
@@ -171,16 +177,6 @@ var savingCityList= function(city){
     cityListArea.appendChild(citySavedLi);  
 }
     
-
-// var runCityOnList=function(){
-//     alert("button clicked");
-//     console.log(selectingCityOnListEl.textContent);
-//    // clickingCity.addEventListener("click",alert("clicked!!!!!!!!!!!"));
-
-// }
-
-
 console.log("outside");
 
 cityFormEl.addEventListener('submit',cityNameHandler);
-//selectingCityOnListEl.addEventListener("click", runCityOnList );
