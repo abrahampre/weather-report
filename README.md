@@ -24,4 +24,11 @@ THEN I am again presented with current and future conditions for that city
 
 ## Screenshots
 
-![App Screenshot](![_C__Users_abrah_Desktop_tareas_weather-forecast_index html](https://user-images.githubusercontent.com/84687714/128649703-6866b11f-4fcf-483c-b3af-9ccdb2a6e5d2.png))
+![_C__Users_abrah_Desktop_tareas_weather-forecast_index html](https://user-images.githubusercontent.com/84687714/128649703-6866b11f-4fcf-483c-b3af-9ccdb2a6e5d2.png)
+
+
+## Links
+
+Deployed Application: https://abrahampre.github.io/weather-report-using-api/
+
+GitHub Repo: https://github.com/abrahampre/weather-report-using-api
